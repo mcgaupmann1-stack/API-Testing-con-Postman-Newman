@@ -1,0 +1,208 @@
+{
+  "info": {
+    "_postman_id": "dd9507ad-f9b5-427b-b9b9-71dd80efa121",
+    "name": "ReqRes - Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49001302",
+    "_collection_link": "https://go.postman.co/collection/49001302-dd9507ad-f9b5-427b-b9b9-71dd80efa121?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Ejemplo POST",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const response = pm.response.json();\r\npm.collectionVariables.set(\"user_id\", response.id);\r\n\r\npm.test(\"Status code es 201 (creado)\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\npm.test(\"El body devuelve el nombre enviado\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.name).to.eql(\"Cris\");\r\n    pm.expect(response.job).to.eql(\"QA Analyst\");\r\n});\r\n\r\npm.test(\"Se generó un id\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.id).to.exist;\r\n});\r\n\r\npm.test(\"El body tiene la estructura esperada\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response).to.have.property(\"id\");\r\n    pm.expect(response).to.have.property(\"createdAt\");\r\n    pm.expect(response.name).to.be.a(\"string\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Cris\",\r\n  \"job\": \"QA Analyst\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/users",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Ejemplo GET",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code es 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"El usuario tiene el email correcto\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.data.email).to.eql(\"janet.weaver@reqres.in\");\r\n});\r\n\r\npm.test(\"La respuesta llega en menos de 1000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(1000);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/users/2",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar recurso completo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code es 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"El job fue actualizado\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.job).to.eql(\"QA Automation Lead\");\r\n});\r\n\r\npm.test(\"Se devolvió updatedAt\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.updatedAt).to.exist;\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Cris\",\r\n  \"job\": \"QA Automation Lead\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/users/2",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar parcialmente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code es 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Solo el job cambió\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.job).to.eql(\"Senior QA Automation Lead\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"job\": \"Senior QA Automation Lead\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/users/2",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar el recurso",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code es 204 (sin contenido)\", function () {\r\n    pm.response.to.have.status(204);\r\n});\r\n\r\npm.test(\"El body viene vacío\", function () {\r\n    pm.expect(pm.response.text()).to.eql(\"\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/users/2",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "value",
+        "value": "pro_876bc40812d47f4f0789ba1da1ad2b2d7f7f52e9d0402258",
+        "type": "string"
+      },
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "user_id",
+      "value": ""
+    }
+  ]
+}
