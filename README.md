@@ -89,4 +89,4 @@ Identificar y documentar este tipo de limitaciones del entorno de prueba —en l
 
 **Cris (María Cristina Gaupmann)**
 QA Analyst & Senior Systems Analyst — Buenos Aires, Argentina
-[LinkedIn](#) · [GitHub](#)
+[LinkedIn](https://www.linkedin.com/in/maria-cristina-gaupmann/)
