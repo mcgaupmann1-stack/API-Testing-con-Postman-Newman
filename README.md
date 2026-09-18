@@ -72,6 +72,7 @@ newman run "ReqRes Users API.postman_collection.json" -e "QA.postman_environment
 
 Esto corre las 5 requests en orden, imprime el resultado de cada assertion en la consola y genera `reporte.html` con el detalle visual de la ejecución (requests, responses, tests pasados/fallados, tiempos).
 
+> 📄 [Ver el reporte de ejecución en vivo](https://mcgaupmann1-stack.github.io/API-Testing-con-Postman-Newman/postman-tests/reporte.html)
 ---
 
 ## 🔍 Hallazgos y decisiones de diseño
